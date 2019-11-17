@@ -1,0 +1,8 @@
+---
+# vars file for dive
+dive_install_dir: '{{ dive_parent_install_dir }}/dive-{{ dive_ver }}'
+dive_platform: '{{ dive_os }}_{{ dive_arch }}'
+dive_archive: dive_{{ dive_ver }}_{{ dive_platform }}.{{ dive_archive_type | default("tar.gz") }}
+dive_url: '{{ dive_mirror }}/v{{ dive_ver }}/{{ dive_archive }}'
+dive_checksum: '{{ dive_checksums[dive_ver][dive_platform] }}'
+dive_link: '{{ dive_parent_install_dir }}/bin/dive'
