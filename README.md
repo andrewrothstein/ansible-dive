@@ -1,6 +1,6 @@
 andrewrothstein.dive
 =========
-[![Build Status](https://travis-ci.org/andrewrothstein/ansible-dive.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-dive)
+![Build Status](https://github.com/andrewrothstein/ansible-dive/actions/workflows/build.yml/badge.svg)
 
 Installs [dive](https://github.com/wagoodman/dive).
 

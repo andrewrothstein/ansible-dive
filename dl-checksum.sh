@@ -25,15 +25,17 @@ dl_ver()
     local rchecksums=$MIRROR/v$ver/$checksums
     if [ ! -e $lchecksums ];
     then
-        wget -q -O $lchecksums $rchecksums
+        curl -sSLf -o $lchecksums $rchecksums
     fi
 
     printf "  # %s\n" $rchecksums
     printf "  '%s':\n" $ver
 
     dl $ver $lchecksums windows amd64 zip
+    dl $ver $lchecksums darwin arm64
     dl $ver $lchecksums darwin amd64
     dl $ver $lchecksums linux amd64
+    dl $ver $lchecksums linux arm64
 }
 
-dl_ver ${1:-0.9.1}
+dl_ver ${1:-0.11.0}

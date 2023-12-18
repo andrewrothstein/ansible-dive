@@ -1,10 +1,12 @@
 ---
 # defaults file for dive
-dive_ver: '0.9.1'
+dive_ver: '0.11.0'
 dive_parent_install_dir: /usr/local
 dive_mirror: https://github.com/wagoodman/dive/releases/download
-dive_os: linux
-dive_arch: amd64
+dive_arch_map:
+  aarch64: arm64
+  arm64: arm64
+  x86_64: amd64
 dive_checksums:
   # https://github.com/wagoodman/dive/releases/download/v0.9.1/dive_0.9.1_checksums.txt
   '0.9.1':
@@ -14,3 +16,15 @@ dive_checksums:
     darwin_amd64: sha256:31fcdc9661aa42c796d8ed1caf0820c178ee58c5a2a31b389228c0321704b23c
     # https://github.com/wagoodman/dive/releases/download/v0.9.1/dive_0.9.1_linux_amd64.tar.gz
     linux_amd64: sha256:2e1cd4a28d8ac9ed72cef176548c248452d5107e1e23afc6e271bda02974dde8
+  # https://github.com/wagoodman/dive/releases/download/v0.11.0/dive_0.11.0_checksums.txt
+  '0.11.0':
+    # https://github.com/wagoodman/dive/releases/download/v0.11.0/dive_0.11.0_windows_amd64.zip
+    windows_amd64: sha256:6f8680c8d906cbd7ef4df3ec7cea90eece95bec45083b8ba6ea1d8a50d645667
+    # https://github.com/wagoodman/dive/releases/download/v0.11.0/dive_0.11.0_darwin_arm64.tar.gz
+    darwin_arm64: sha256:e7f72b9b72613fba7bf4cc9e311ff15b7def5f4e8690697c68a9d98c550dc2be
+    # https://github.com/wagoodman/dive/releases/download/v0.11.0/dive_0.11.0_darwin_amd64.tar.gz
+    darwin_amd64: sha256:a55761d26756bfbf5884a4e6ea4c1fd01f8e24c717645a4933da09cd30b25355
+    # https://github.com/wagoodman/dive/releases/download/v0.11.0/dive_0.11.0_linux_amd64.tar.gz
+    linux_amd64: sha256:80835d3320292c4ab761d03c1fd33745ddb9b6064c035b65f77825f18f407d28
+    # https://github.com/wagoodman/dive/releases/download/v0.11.0/dive_0.11.0_linux_arm64.tar.gz
+    linux_arm64: sha256:656aa45f618c30f02a30fa256e429ba1afafd9e39e3757e52a30764494c71b7a

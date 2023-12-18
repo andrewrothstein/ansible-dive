@@ -1,6 +1,8 @@
 ---
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
+- ansible.builtin.include_role:
+    name: andrewrothstein.unarchivedeps
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
@@ -9,48 +11,48 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: check for install
-  become: yes
+- name: check for install at {{ dive_install_exe }}
+  become: true
   stat:
-    path: '{{ dive_install_dir }}'
-  changed_when: False
+    path: '{{ dive_install_exe }}'
+  changed_when: false
   register: dive_binary
 - when: not dive_binary.stat.exists
   block:
-    - name: download
-      become: yes
+    - name: Downloading {{ dive_url }} to {{ dive_tmp_archive }}
+      become: true
       become_user: root
-      get_url:
+      ansible.builtin.get_url:
         url: '{{ dive_url }}'
-        dest: /tmp/{{ dive_archive }}
-        mode: 0644
+        dest: '{{ dive_tmp_archive }}'
+        mode: '644'
         checksum: '{{ dive_checksum }}'
-    - name: mkdir
-      become: yes
+    - name: Mkdir {{ dive_install_dir }}
+      become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ dive_install_dir }}'
-        mode: 0755
+        mode: '755'
         state: directory
     - name: unarchive
-      become: yes
+      become: true
       become_user: root
-      unarchive:
-        remote_src: yes
+      ansible.builtin.unarchive:
+        remote_src: true
         src: /tmp/{{ dive_archive }}
         dest: '{{ dive_install_dir }}'
         creates: '{{ dive_install_dir }}/dive'
   always:
-    - name: cleanup
-      become: yes
+    - name: Rm {{ dive_tmp_archive }}
+      become: true
       become_user: root
-      file:
-        path: /tmp/{{ dive_archive }}
+      ansible.builtin.file:
+        path: '{{ dive_tmp_archive }}'
         state: absent
-- name: link
-  become: yes
+- name: Linking {{ dive_link }} to {{ dive_install_exe }}
+  become: true
   become_user: root
-  file:
-    src: '{{ dive_install_dir }}/dive'
+  ansible.builtin.file:
+    src: '{{ dive_install_exe }}'
     dest: '{{ dive_link }}'
     state: link
