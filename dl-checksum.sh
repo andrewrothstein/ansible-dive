@@ -31,6 +31,7 @@ dl_ver()
     printf "  # %s\n" $rchecksums
     printf "  '%s':\n" $ver
 
+    dl $ver $lchecksums windows arm64 zip
     dl $ver $lchecksums windows amd64 zip
     dl $ver $lchecksums darwin arm64
     dl $ver $lchecksums darwin amd64
@@ -38,4 +39,4 @@ dl_ver()
     dl $ver $lchecksums linux arm64
 }
 
-dl_ver ${1:-0.11.0}
+dl_ver ${1:-0.12.0}

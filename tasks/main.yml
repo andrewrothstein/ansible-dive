@@ -1,5 +1,6 @@
 ---
-- ansible.builtin.include_role:
+- name: Installing andrewrothstein.unarchivedeps
+  ansible.builtin.include_role:
     name: andrewrothstein.unarchivedeps
 - name: Resolve platform specific vars
   ansible.builtin.include_vars: '{{ item }}'
@@ -11,13 +12,14 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: check for install at {{ dive_install_exe }}
+- name: Check for install at {{ dive_install_exe }}
   become: true
-  stat:
+  ansible.builtin.stat:
     path: '{{ dive_install_exe }}'
   changed_when: false
   register: dive_binary
-- when: not dive_binary.stat.exists
+- name: Downloading and installing dive
+  when: not dive_binary.stat.exists
   block:
     - name: Downloading {{ dive_url }} to {{ dive_tmp_archive }}
       become: true
@@ -34,12 +36,12 @@
         path: '{{ dive_install_dir }}'
         mode: '755'
         state: directory
-    - name: unarchive
+    - name: Unarchive
       become: true
       become_user: root
       ansible.builtin.unarchive:
         remote_src: true
-        src: /tmp/{{ dive_archive }}
+        src: '{{ dive_tmp_archive }}'
         dest: '{{ dive_install_dir }}'
         creates: '{{ dive_install_dir }}/dive'
   always:
